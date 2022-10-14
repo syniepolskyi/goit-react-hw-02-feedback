@@ -1,6 +1,6 @@
 import { default as React } from 'react';
 
-import { Statistics } from '../Statistics';
+//import { Statistics } from '../Statistics';
 import { Container } from './App.styled';
 
 export class App extends React.Component {
@@ -13,9 +13,9 @@ export class App extends React.Component {
 
   changeState = (evt) => {
     const key = evt.target.dataset.type
-    this.setState({
-      key: this.state[key]++
-    })
+    const stateObj = {}
+    stateObj[key] = this.state[key]+1
+    this.setState(stateObj)
   }
 
   render(){ 
