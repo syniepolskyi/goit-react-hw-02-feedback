@@ -1,19 +1,35 @@
 import { default as PropTypes } from 'prop-types';
-import { 
-  SectionTitle, 
-  StatisticsStyled,
-} from './Statistics.styled';
+import { SectionTitle } from './Statistics.styled';
+import { Notification } from '../Notification';
 
 export const Statistics = ({
-  title
+  good,
+  neutral,
+  bad,
+  total,
+  positivePercentage,
 }) => {
   return (
-    <StatisticsStyled>
-      {(title ? <SectionTitle>{title}</SectionTitle> : '')}
-    </StatisticsStyled>
+    <>
+      <SectionTitle>Statistics</SectionTitle>
+      {total ? (
+        <>
+          <p>Good: {good}</p>
+          <p>Neutral: {neutral}</p>
+          <p>Bad: {bad}</p>
+          <p>Total: {total}</p>
+          <p>Positive feedback: {positivePercentage}%</p>
+        </>
+      ) : (
+        <Notification message="There is no feedback" />
+      )}
+    </>
   );
 };
 
 Statistics.propTypes = {
-  title: PropTypes.string,
+  good: PropTypes.number,
+  bad: PropTypes.number,
+  total: PropTypes.number,
+  positivePercentage: PropTypes.number,
 };

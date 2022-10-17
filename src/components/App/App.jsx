@@ -1,43 +1,54 @@
 import { default as React } from 'react';
 
-//import { Statistics } from '../Statistics';
+import { Statistics } from '../Statistics';
+import { FeedbackOptions } from '../FeedbackOptions';
+import { Section } from '../Section';
 import { Container } from './App.styled';
 
 export class App extends React.Component {
-
   state = {
     good: 0,
     neutral: 0,
-    bad: 0
-  }
+    bad: 0,
+  };
 
-  changeState = (evt) => {
-    const key = evt.target.dataset.type
-    const stateObj = {}
-    stateObj[key] = this.state[key]+1
-    this.setState(stateObj)
-  }
+  changeState = evt => {
+    const key = evt.currentTarget.dataset.type;
+    this.setState({
+      [key]: this.state[key] + 1,
+    });
+  };
 
-  render(){ 
+  countTotalFeedback = () => {
+    return [...Object.values(this.state)].reduce((acc, val) => acc + val, 0);
+  };
+
+  countPositiveFeedbackPercentage = () => {
+    if (!this.countTotalFeedback()) {
+      return 0;
+    }
+    return Math.round((100 * this.state.good) / this.countTotalFeedback());
+  };
+
+  render() {
     return (
-    <Container>
-      {/*<Statistics title="Upload stats" />*/}
-      <div>
-        <h2>Please leave feedback</h2>
-        <div>
-          <button type="button" data-type="good" onClick={this.changeState}>Good</button>
-          <button type="button" data-type="neutral" onClick={this.changeState}>Neutral</button>
-          <button type="button"  data-type="bad" onClick={this.changeState}>Bad</button>
-        </div>
-      </div>
-      <div>
-        <h2>Statistics</h2>
-        <p>Good: { this.state.good }</p>
-        <p>Neutral: { this.state.neutral }</p>
-        <p>Bad: { this.state.bad }</p>
-      </div>
-
-    </Container>
+      <Container>
+        <Section title="Feedback options">
+          <FeedbackOptions
+            options={this.state}
+            onLeaveFeedback={this.changeState}
+          />
+        </Section>
+        <Section title="Statistics">
+          <Statistics
+            good={this.state.good}
+            neutral={this.state.neutral}
+            bad={this.state.bad}
+            total={this.countTotalFeedback()}
+            positivePercentage={this.countPositiveFeedbackPercentage()}
+          />
+        </Section>
+      </Container>
     );
   }
-};
+}
