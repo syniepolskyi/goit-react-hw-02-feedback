@@ -1,6 +1,5 @@
 import { default as PropTypes } from 'prop-types';
-import { FeedbackToolbar, Capitalized } from './FeedbackOptions.styled';
-import { Button } from '../App/App.styled';
+import { Button, FeedbackToolbar, Capitalized } from './FeedbackOptions.styled';
 
 export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
