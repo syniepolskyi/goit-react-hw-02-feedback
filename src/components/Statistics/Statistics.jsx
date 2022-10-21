@@ -28,6 +28,7 @@ export class Statistics extends React.Component {
 
 Statistics.propTypes = {
   good: PropTypes.number,
+  neutral: PropTypes.number,
   bad: PropTypes.number,
   total: PropTypes.number,
   positivePercentage: PropTypes.number,

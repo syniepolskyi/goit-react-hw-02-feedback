@@ -28,6 +28,10 @@ export class FeedbackOptions extends React.Component {
 }
 
 FeedbackOptions.propTypes = {
-  options: PropTypes.object,
+  options: PropTypes.shape({
+    good: PropTypes.number,    
+    neutral: PropTypes.number,    
+    bad: PropTypes.number,    
+  }),
   onLeaveFeedback: PropTypes.func,
 };
